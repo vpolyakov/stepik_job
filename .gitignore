@@ -52,10 +52,10 @@ coverage.xml
 
 # Django stuff:
 *.log
-.static/
+# .static/
 .media/
 local_settings.py
-db.sqlite3
+# db.sqlite3
 db.sqlite3-journal
 
 # Flask stuff:
@@ -113,13 +113,11 @@ venv.bak/
 
 # static files
 shared/
-static/
+# static/
 imports/
 media/
 
 # temporary ignore files for formatter, linters
 setup.cfg
-
-*.sqlite3
 
 .flake8
