@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     'job',
     'job.templatetags.job_extras',
     'tinymce',
+    'crispy_forms',
+    # 'django_cleanup.apps.CleanupConfig',  # Библиотека для поддержки автоудаления файлов для FileField
 ]
 
 MIDDLEWARE = [
@@ -65,6 +67,7 @@ TEMPLATES = [
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
+                'django.template.context_processors.media',  # для доступа к media в шаблонах типа {{ MEDIA_URL }}
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
@@ -130,6 +133,13 @@ STATIC_ROOT = 'static'
 INTERNAL_IPS = [
     '127.0.0.1',
 ]
+
+MEDIA_ROOT = 'media'
+MEDIA_URL = '/media/'
+
+MEDIA_COMPANY_IMAGE_DIR = 'company_images'
+MEDIA_SPECIALITY_IMAGE_DIR = 'speciality_images'
+
 
 USE_THOUSAND_SEPARATOR = True
 THOUSAND_SEPARATOR = ' '
