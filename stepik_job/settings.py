@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'debug_toolbar',
     'job',
     'job.templatetags.job_extras',
+    'accounts',
     'tinymce',
     'crispy_forms',
     # 'django_cleanup.apps.CleanupConfig',  # Библиотека для поддержки автоудаления файлов для FileField
@@ -108,6 +109,10 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# Регистрация и вход
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/login'
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
@@ -136,6 +141,7 @@ INTERNAL_IPS = [
 
 MEDIA_ROOT = 'media'
 MEDIA_URL = '/media/'
+
 
 MEDIA_COMPANY_IMAGE_DIR = 'company_images'
 MEDIA_SPECIALITY_IMAGE_DIR = 'speciality_images'
@@ -175,3 +181,5 @@ TINYMCE_DEFAULT_CONFIG = {
     'menubar': True,
     'statusbar': True,
 }
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
