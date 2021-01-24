@@ -19,6 +19,8 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
 
+from django.contrib.auth.views import LogoutView
+
 from job.views import custom_handler404, custom_handler500
 from job.views import (
     MainView,
@@ -26,7 +28,16 @@ from job.views import (
     ListVacanciesView,
     ListSpecVacanciesView,
     ListCompanyVacanciesView,
+    VacancySendView,
+
+    MycompanyView,
+    MycompanyCreateView,
+    MycompanyLetsStartView,
+
+    MycompanyVacanciesView,
+    MycompanyVacancyView,
 )
+from accounts.views import UserLoginView, UserSignupView
 
 handler404 = custom_handler404
 handler500 = custom_handler500
@@ -41,8 +52,19 @@ urlpatterns = [
     path('vacancies/cat/<slug:code>/', ListSpecVacanciesView.as_view(), name='spec_vacancies'),
     path('companies/<int:pk>/', ListCompanyVacanciesView.as_view(), name='company_vacancies'),
     path('vacancies/<int:pk>/', DetailVacancyView.as_view(), name='vacancy'),
+    path('/vacancies/<int:vacancy_id>/send/', VacancySendView.as_view(), name='vacancy_send'),
+
+    path('mycompany/', MycompanyView.as_view(), name='mycompany'),
+    path('mycompany/create/', MycompanyCreateView.as_view(), name='mycompany_create'),
+    path('mycompany/letsstart/', MycompanyLetsStartView.as_view(), name='my_company_lets_start'),
+
+    path('mycompany/vacancies/', MycompanyVacanciesView.as_view(), name='mycompany_vacancies'),
+    path('mycompany/vacancies/<int:vacancy_id>/', MycompanyVacancyView.as_view(), name='mycompany_vacancy'),
+
+    path('login/', UserLoginView.as_view(), name='login'),
+    path('register/', UserSignupView.as_view(), name='register'),
+    path('logout/', LogoutView.as_view()),
 ]
 
 if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL,
-                          document_root=settings.MEDIA_ROOT)
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

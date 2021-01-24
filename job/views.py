@@ -4,7 +4,7 @@ from django.shortcuts import get_object_or_404
 from django.views.generic import DetailView, ListView, TemplateView
 
 # Create your views here.
-from job.models import Vacancy, Specialty, Company
+from job.models import Vacancy, Specialty, Company, Application
 
 
 class MainView(TemplateView):
@@ -67,6 +67,30 @@ class ListCompanyVacanciesView(ListView):
 class DetailVacancyView(DetailView):
     model = Vacancy
     queryset = Vacancy.objects.select_related('company')
+
+
+class VacancySendView(DetailView):
+    model = Vacancy
+
+
+class MycompanyView(TemplateView):
+    pass
+
+
+class MycompanyCreateView(TemplateView):
+    pass
+
+
+class MycompanyLetsStartView(TemplateView):
+    pass
+
+
+class MycompanyVacanciesView(ListView):
+    model = Vacancy
+
+
+class MycompanyVacancyView(DetailView):
+    model = Vacancy
 
 
 def custom_handler404(request, exception) -> HttpResponse:
