@@ -1,5 +1,3 @@
-# from django.contrib.auth.forms import UserCreationForm
-# from django.contrib.auth.models import User
 from django.contrib.auth.views import LoginView
 from django.views.generic import CreateView
 
@@ -16,4 +14,3 @@ class UserSignupView(CreateView):
 class UserLoginView(LoginView):
     redirect_authenticated_user = True
     template_name = 'accounts/login.html'
-    # authentication_form = LoginForm

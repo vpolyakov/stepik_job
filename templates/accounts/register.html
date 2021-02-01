@@ -1,6 +1,8 @@
 {% extends 'accounts/account_base.html' %}
 {% load crispy_forms_tags %}
 
+{% block title %}Создание аккаунта | {% endblock %}
+
 {% block content %}
 <form class="form-signin pt-5" enctype="multipart/form-data" method="post">
   {% csrf_token %}

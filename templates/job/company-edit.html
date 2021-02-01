@@ -1,0 +1,69 @@
+{% extends 'mycom_base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}Моя компания | {% endblock %}
+
+{% block body_style_in_head %}
+<style>
+  body {
+    background-color: #F6F2E6;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="row mt-5">
+  {% include 'left-menu.html' %}
+  <div class="col-12 col-lg-8">
+    <div class="card">
+      <div class="card-body px-4 pb-4">
+        <!-- Tab -->
+        <section class="tab-pane fade show active">
+          <h2 class="h4 pt-2 pb-3">Информация о&nbsp;компании</h2>
+          {% if is_saved %}
+          <p class="alert alert-info" role="alert">
+            Информация о компании обновлена
+          </p>
+          {% endif %}
+
+          <form action="" enctype="multipart/form-data" method="post">
+            {% csrf_token %}
+            <div class="row">
+              <div class="col-12 col-md-6">
+                {{ form.name|as_crispy_field }}
+              </div>
+              <div class="col-12 col-md-6">
+                <label class="mb-2 text-dark">Логотип</label>
+                <div class="row">
+                  <div class="col-6">
+                    <img src="https://place-hold.it/120x40" alt="" style="max-width: 120px;height: auto;">
+                  </div>
+                  <div class="col-6" style="position: relative;">
+                    <div class="input-group-prepend" style="position: absolute; top: 0;right: 15px;">
+                      <span class="btn btn-info px-4">Загрузить</span>
+                    </div>
+                    {{ form.logo|as_crispy_field }}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12 col-md-6">
+                {{ form.employee_count|as_crispy_field }}
+              </div>
+              <div class="col-12 col-md-6">
+                {{ form.location|as_crispy_field }}
+              </div>
+            </div>
+            {{ form.description|as_crispy_field }}
+            <div class="form-group">
+              <input type="submit" class="btn btn-info" value="Сохранить">
+            </div>
+          </form>
+        </section>
+        <!-- END Tab -->
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -16,7 +16,11 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='company',
             name='owner',
-            field=models.ForeignKey(default=2, on_delete=django.db.models.deletion.CASCADE, related_name='companies', to='auth.user'),
+            field=models.ForeignKey(
+                default=2,
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name='companies', to='auth.user',
+            ),
             preserve_default=False,
         ),
         migrations.AlterField(
@@ -32,12 +36,21 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Application',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.AutoField(
+                    auto_created=True,
+                    primary_key=True,
+                    serialize=False,
+                    verbose_name='ID',
+                )),
                 ('written_username', models.CharField(max_length=128)),
                 ('written_phone', models.CharField(max_length=32)),
                 ('written_cover_letter', models.TextField()),
-                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='applications', to=settings.AUTH_USER_MODEL)),
-                ('vacancy', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='applications', to='job.vacancy')),
+                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE,
+                                           related_name='applications',
+                                           to=settings.AUTH_USER_MODEL)),
+                ('vacancy', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE,
+                                              related_name='applications',
+                                              to='job.vacancy')),
             ],
         ),
     ]

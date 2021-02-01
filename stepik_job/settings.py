@@ -110,8 +110,9 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 # Регистрация и вход
-LOGIN_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = '/mycompany/'
 LOGOUT_REDIRECT_URL = '/login'
+LOGIN_URL = '/login'
 
 
 # Internationalization
@@ -183,3 +184,4 @@ TINYMCE_DEFAULT_CONFIG = {
 }
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+CRISPY_FAIL_SILENTLY = not DEBUG

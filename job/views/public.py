@@ -1,10 +1,11 @@
 from django.db.models import Count
 from django.http import HttpResponse, HttpResponseNotFound, HttpResponseServerError
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, redirect
 from django.views.generic import DetailView, ListView, TemplateView
 
 # Create your views here.
-from job.models import Vacancy, Specialty, Company, Application
+from job.forms import ApplicationForm
+from job.models import Vacancy, Specialty, Company
 
 
 class MainView(TemplateView):
@@ -68,29 +69,23 @@ class DetailVacancyView(DetailView):
     model = Vacancy
     queryset = Vacancy.objects.select_related('company')
 
-
-class VacancySendView(DetailView):
-    model = Vacancy
-
-
-class MycompanyView(TemplateView):
-    pass
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['form'] = ApplicationForm()
+        return context
 
 
-class MycompanyCreateView(TemplateView):
-    pass
+class VacancySendView(TemplateView):
+    template_name = 'job/sent.html'
 
-
-class MycompanyLetsStartView(TemplateView):
-    pass
-
-
-class MycompanyVacanciesView(ListView):
-    model = Vacancy
-
-
-class MycompanyVacancyView(DetailView):
-    model = Vacancy
+    def post(self, request, **kwargs):
+        form = ApplicationForm(request.POST)
+        if form.is_valid():
+            form.vacancy_id = kwargs['vacancy_id']
+            if request.user.is_authenticated:
+                form.curr_user = request.user
+            form.save()
+            return redirect(request.path)
 
 
 def custom_handler404(request, exception) -> HttpResponse:

@@ -1,6 +1,11 @@
 {% extends 'base.html' %}
 {% load job_extras %}
 
+{% block title %}Компания {{ company.name }} | {% endblock %}
+
+{% block body_style_in_head %}
+{% endblock %}
+
 {% block content %}
   <div class="navbar mt-5">
     <p><a href="#" onclick="history.back();">Назад</a></p>

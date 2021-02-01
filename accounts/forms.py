@@ -11,9 +11,6 @@ class MyUserCreationForm(forms.ModelForm):
     A form that creates a user, with no privileges, from the given username,
     password,  first_name and last_name.
     """
-    # error_messages = {
-    #     'password_mismatch': gettext_lazy('The two password fields didn’t match.'),
-    # }
     password1 = forms.CharField(
         label=gettext_lazy("Password"),
         strip=False,
@@ -28,8 +25,9 @@ class MyUserCreationForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         if self._meta.model.USERNAME_FIELD in self.fields:
-            self.fields[self._meta.model.USERNAME_FIELD].widget.attrs['autofocus'] = True
-            self.fields[self._meta.model.USERNAME_FIELD].help_text = None
+            usr_field = self.fields[self._meta.model.USERNAME_FIELD]
+            usr_field.widget.attrs['autofocus'] = True
+            usr_field.help_text = None
 
     def _post_clean(self):
         super()._post_clean()

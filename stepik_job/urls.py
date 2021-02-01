@@ -21,8 +21,8 @@ from django.urls import path, include
 
 from django.contrib.auth.views import LogoutView
 
-from job.views import custom_handler404, custom_handler500
-from job.views import (
+from job.views.public import custom_handler404, custom_handler500
+from job.views.public import (
     MainView,
     DetailVacancyView,
     ListVacanciesView,
@@ -30,13 +30,9 @@ from job.views import (
     ListCompanyVacanciesView,
     VacancySendView,
 
-    MycompanyView,
-    MycompanyCreateView,
-    MycompanyLetsStartView,
-
-    MycompanyVacanciesView,
-    MycompanyVacancyView,
 )
+from job.views.myvacancies import MycompanyVacanciesView, MycompanyVacancyView
+from job.views.mycompany import MycompanyView, MycompanyCreateView, MycompanyLetsStartView
 from accounts.views import UserLoginView, UserSignupView
 
 handler404 = custom_handler404
@@ -52,7 +48,8 @@ urlpatterns = [
     path('vacancies/cat/<slug:code>/', ListSpecVacanciesView.as_view(), name='spec_vacancies'),
     path('companies/<int:pk>/', ListCompanyVacanciesView.as_view(), name='company_vacancies'),
     path('vacancies/<int:pk>/', DetailVacancyView.as_view(), name='vacancy'),
-    path('/vacancies/<int:vacancy_id>/send/', VacancySendView.as_view(), name='vacancy_send'),
+
+    path('vacancies/<int:vacancy_id>/send/', VacancySendView.as_view(), name='vacancy_send'),
 
     path('mycompany/', MycompanyView.as_view(), name='mycompany'),
     path('mycompany/create/', MycompanyCreateView.as_view(), name='mycompany_create'),
@@ -63,7 +60,7 @@ urlpatterns = [
 
     path('login/', UserLoginView.as_view(), name='login'),
     path('register/', UserSignupView.as_view(), name='register'),
-    path('logout/', LogoutView.as_view()),
+    path('logout/', LogoutView.as_view(), name='logout'),
 ]
 
 if settings.DEBUG:

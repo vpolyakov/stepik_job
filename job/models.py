@@ -7,13 +7,13 @@ from stepik_job.settings import MEDIA_COMPANY_IMAGE_DIR, MEDIA_SPECIALITY_IMAGE_
 
 # Create your models here.
 class Company(models.Model):
-    com_id = models.PositiveIntegerField(primary_key=True, db_column='id')
+    com_id = models.AutoField(primary_key=True, db_column='id')
     name = models.CharField(max_length=32)
     location = models.CharField(max_length=32)
     logo = models.ImageField(upload_to=MEDIA_COMPANY_IMAGE_DIR, default='150x80.gif')
     description = models.CharField(max_length=264)
     employee_count = models.PositiveIntegerField()
-    owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name='companies')
+    owner = models.OneToOneField(User, on_delete=models.CASCADE, related_name='companies')
 
     def __str__(self):
         return '%s' % self.name
@@ -44,6 +44,7 @@ class Vacancy(models.Model):
 
 
 class Application(models.Model):
+    apply_id = models.AutoField(primary_key=True, db_column='id')
     written_username = models.CharField(max_length=128)
     written_phone = models.CharField(max_length=32)
     written_cover_letter = models.TextField()
