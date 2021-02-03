@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.forms import Textarea
 from django.forms.widgets import FileInput
 from django.utils.translation import gettext_lazy as _
+from tinymce.widgets import TinyMCE
 
 from job.models import Application, Vacancy, Company
 
@@ -42,4 +43,41 @@ class MyCompanyForm(forms.ModelForm):
         widgets = {
             'description': Textarea(attrs={'rows': 4}),
             'logo': FileInput(attrs={'class': 'custom-file-input'}),
+            # TODO Доработать (сделать пользовательский) виджет, чтобы из поля передавалось в html tag img<> адрес
+        }
+
+
+class MyVacancyForm(forms.ModelForm):
+    class Meta:
+        model = Vacancy
+        fields = ('title', 'specialty', 'skills', 'description', 'salary_min', 'salary_max')
+        labels = {
+            'title': 'Название вакансии',
+            'specialty': 'Специализация',
+            'skills': 'Требуемые навыки',
+            'description': 'Описание вакансии',
+            'salary_min': 'Зарплата от',
+            'salary_max': 'Зарплата до',
+        }
+        widgets = {
+            'skills': Textarea(attrs={'rows': 2}),
+            'description': TinyMCE(
+                attrs={'cols': 80, 'rows': 14, 'maxwidth': 678},
+                mce_attrs={'width': 678,
+                           'menubar': False,
+                           'toolbar2': "",
+                           'toolbar1': '''
+                           bold italic underline | fontselect,
+                           fontsizeselect | forecolor backcolor | alignleft alignright aligncenter alignjustify |
+                            bullist numlist | link image
+                           ''',
+                           'plugins': '''
+                            textcolor save link image media contextmenu
+                            lists insertdatetime nonbreaking
+                            contextmenu directionality searchreplace wordcount visualblocks
+                            visualchars code autolink lists charmap print hr
+                            anchor pagebreak
+                            ''',
+                           },
+            ),
         }

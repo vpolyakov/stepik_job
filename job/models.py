@@ -29,7 +29,7 @@ class Specialty(models.Model):
 
 
 class Vacancy(models.Model):
-    vacancy_id = models.PositiveIntegerField(primary_key=True, db_column='id')
+    vacancy_id = models.AutoField(primary_key=True, db_column='id')
     title = models.CharField(max_length=64)
     specialty = models.ForeignKey(Specialty, on_delete=models.CASCADE, related_name='vacancies')
     company = models.ForeignKey(Company, on_delete=models.CASCADE, related_name='vacancies')

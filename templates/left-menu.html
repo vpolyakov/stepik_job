@@ -1,14 +1,18 @@
+{% url 'mycompany' as my_com %}
+{% url 'mycompany_create' as my_com_reg %}
+{% url 'mycompany_vacancies' as my_vac %}
+{% url 'mycompany_vacancies_letsstart' as vac_start %}
+{% url 'mycompany_vacancies_create' as vac_create %}
+{% url 'mycompany_vacancy' pk as vac_edit %}
+
 <div class="col-12 col-lg-4">
   <aside class="pt-3 pb-4 px-4 mb-5 card">
     <h1 class="h4 pt-2 pb-2">Моя компания</h1>
     <div class="nav flex-column nav-pills">
-      {% url 'mycompany' as my_com %}
-      {% url 'mycompany_create' as my_com_reg %}
       <a class="nav-link{% if request.path == my_com or request.path == my_com_reg %} active{% endif %}" href="{{ my_com }}">
         1. Информация о компании
       </a>
-      {% url 'mycompany_vacancies' as my_vac %}
-      <a class="nav-link{% if request.path == my_vac %} active{% endif %}" href="{{ my_vac }}">
+      <a class="nav-link{% if request.path == my_vac or request.path == vac_start or request.path == vac_create or request.path == vac_edit %} active{% endif %}" href="{{ my_vac }}">
         2. Вакансии
       </a>
     </div>

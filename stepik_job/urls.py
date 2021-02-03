@@ -17,11 +17,13 @@ import debug_toolbar
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
+from django.contrib.auth.views import LogoutView
 from django.urls import path, include
 
-from django.contrib.auth.views import LogoutView
-
-from job.views.public import custom_handler404, custom_handler500
+from accounts.views import UserLoginView, UserSignupView
+from job.views.mycompany import MycompanyView, MycompanyCreateView, MycompanyLetsStartView
+from job.views.myvacancies import MyCompVacanciesView, \
+    MyCompVacancyCreateView, MyCompVacancyUpdateView, MyCompVacancyLetsStartView
 from job.views.public import (
     MainView,
     DetailVacancyView,
@@ -31,9 +33,7 @@ from job.views.public import (
     VacancySendView,
 
 )
-from job.views.myvacancies import MycompanyVacanciesView, MycompanyVacancyView
-from job.views.mycompany import MycompanyView, MycompanyCreateView, MycompanyLetsStartView
-from accounts.views import UserLoginView, UserSignupView
+from job.views.public import custom_handler404, custom_handler500
 
 handler404 = custom_handler404
 handler500 = custom_handler500
@@ -55,8 +55,10 @@ urlpatterns = [
     path('mycompany/create/', MycompanyCreateView.as_view(), name='mycompany_create'),
     path('mycompany/letsstart/', MycompanyLetsStartView.as_view(), name='my_company_lets_start'),
 
-    path('mycompany/vacancies/', MycompanyVacanciesView.as_view(), name='mycompany_vacancies'),
-    path('mycompany/vacancies/<int:vacancy_id>/', MycompanyVacancyView.as_view(), name='mycompany_vacancy'),
+    path('mycompany/vacancies/', MyCompVacanciesView.as_view(), name='mycompany_vacancies'),
+    path('mycompany/vacancies/<int:pk>/', MyCompVacancyUpdateView.as_view(), name='mycompany_vacancy'),
+    path('mycompany/vacancies/create/', MyCompVacancyCreateView.as_view(), name='mycompany_vacancies_create'),
+    path('mycompany/vacancies/letsstart/', MyCompVacancyLetsStartView.as_view(), name='mycompany_vacancies_letsstart'),
 
     path('login/', UserLoginView.as_view(), name='login'),
     path('register/', UserSignupView.as_view(), name='register'),
